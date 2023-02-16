@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
   private PlayerInput playerInput;
-  private PlayerInput.OnFootActions onFoot;
+  public PlayerInput.OnFootActions onFoot;
 
   private PlayerMotor motor;
   private PlayerLook look;
@@ -25,10 +25,10 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+      motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
     }
 
-    private void LateUpdate(){
+    void LateUpdate(){
       look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
     }
 
