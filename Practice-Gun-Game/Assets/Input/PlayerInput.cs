@@ -80,24 +80,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""TempTakeDamage"",
-                    ""type"": ""Button"",
-                    ""id"": ""62873e86-34c0-4c83-b2bd-420a10d74d7b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""TempRestoreHealth"",
-                    ""type"": ""Button"",
-                    ""id"": ""6921ef1b-e099-45dc-9c99-aacc75dc9b3d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -318,28 +300,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""15eafd44-1c8b-4fa1-85e7-13ff27acb356"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TempTakeDamage"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3d0b325f-a4e8-4081-bf97-d236d34031d6"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""TempRestoreHealth"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -872,8 +832,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         m_OnFoot_Crouch = m_OnFoot.FindAction("Crouch", throwIfNotFound: true);
         m_OnFoot_Sprint = m_OnFoot.FindAction("Sprint", throwIfNotFound: true);
         m_OnFoot_Interact = m_OnFoot.FindAction("Interact", throwIfNotFound: true);
-        m_OnFoot_TempTakeDamage = m_OnFoot.FindAction("TempTakeDamage", throwIfNotFound: true);
-        m_OnFoot_TempRestoreHealth = m_OnFoot.FindAction("TempRestoreHealth", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -951,8 +909,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_OnFoot_Crouch;
     private readonly InputAction m_OnFoot_Sprint;
     private readonly InputAction m_OnFoot_Interact;
-    private readonly InputAction m_OnFoot_TempTakeDamage;
-    private readonly InputAction m_OnFoot_TempRestoreHealth;
     public struct OnFootActions
     {
         private @PlayerInput m_Wrapper;
@@ -963,8 +919,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_OnFoot_Crouch;
         public InputAction @Sprint => m_Wrapper.m_OnFoot_Sprint;
         public InputAction @Interact => m_Wrapper.m_OnFoot_Interact;
-        public InputAction @TempTakeDamage => m_Wrapper.m_OnFoot_TempTakeDamage;
-        public InputAction @TempRestoreHealth => m_Wrapper.m_OnFoot_TempRestoreHealth;
         public InputActionMap Get() { return m_Wrapper.m_OnFoot; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -992,12 +946,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnInteract;
-                @TempTakeDamage.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnTempTakeDamage;
-                @TempTakeDamage.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnTempTakeDamage;
-                @TempTakeDamage.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnTempTakeDamage;
-                @TempRestoreHealth.started -= m_Wrapper.m_OnFootActionsCallbackInterface.OnTempRestoreHealth;
-                @TempRestoreHealth.performed -= m_Wrapper.m_OnFootActionsCallbackInterface.OnTempRestoreHealth;
-                @TempRestoreHealth.canceled -= m_Wrapper.m_OnFootActionsCallbackInterface.OnTempRestoreHealth;
             }
             m_Wrapper.m_OnFootActionsCallbackInterface = instance;
             if (instance != null)
@@ -1020,12 +968,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @TempTakeDamage.started += instance.OnTempTakeDamage;
-                @TempTakeDamage.performed += instance.OnTempTakeDamage;
-                @TempTakeDamage.canceled += instance.OnTempTakeDamage;
-                @TempRestoreHealth.started += instance.OnTempRestoreHealth;
-                @TempRestoreHealth.performed += instance.OnTempRestoreHealth;
-                @TempRestoreHealth.canceled += instance.OnTempRestoreHealth;
             }
         }
     }
@@ -1143,8 +1085,6 @@ public partial class @PlayerInput : IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnTempTakeDamage(InputAction.CallbackContext context);
-        void OnTempRestoreHealth(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
